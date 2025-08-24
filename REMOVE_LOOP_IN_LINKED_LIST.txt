@@ -1,0 +1,35 @@
+class Solution {
+  public:
+    void removeLoop(Node* head) {
+        // code here
+        Node* slow;
+        Node* fast;
+        bool cyc=false;
+        slow=fast=head;
+        while(fast!=nullptr && fast->next!=nullptr){
+            slow=slow->next;
+            fast=fast->next->next;
+            if(fast==slow){
+                cyc=true;
+                break;
+            }
+        }
+        
+        if(!cyc){
+            return;
+        }
+        
+        fast=head;
+        while(fast!=slow){
+            slow=slow->next;
+            fast=fast->next;
+        }
+        
+        Node* start=slow;
+        while(start->next!=slow){
+            start=start->next;
+        }
+        start->next=nullptr;
+        
+    }
+};
