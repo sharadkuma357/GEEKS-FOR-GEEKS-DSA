@@ -1,0 +1,36 @@
+class Solution {
+  public:
+    bool isPalindrome(Node *head) {
+        //  code here
+        if(head==nullptr || head->next==nullptr)
+            return true;
+        
+        Node* fast;
+        Node* slow;
+        slow=fast=head;
+        while(fast!=nullptr && fast->next!=nullptr){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        
+        Node *prev=nullptr,*cur=slow,*next=nullptr;
+        
+        while(cur!=nullptr){
+            next=cur->next;
+            cur->next=prev;
+            prev=cur;
+            cur=next;
+        }
+        
+        Node *first=head;
+        Node *sec=prev;
+        while(sec!=nullptr){
+            if(first->data!=sec->data){
+                return false;
+            }
+            first=first->next;
+            sec=sec->next;
+        }
+        return true;
+    }
+};
